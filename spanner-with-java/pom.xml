@@ -1,0 +1,106 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+  xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+  <modelVersion>4.0.0</modelVersion>
+  <groupId>page.janardhan.labs</groupId>
+  <artifactId>spanner-with-java</artifactId>
+  <packaging>jar</packaging>
+  <version>1.0-SNAPSHOT</version>
+  <name>spanner-with-java</name>
+  <url>https://github.com/j143/query-spanner-with-java</url>
+
+  <repositories>
+    <repository>
+      <id>maven-repo-1</id>
+      <url>https://repo1.maven.org/maven2</url>
+    </repository>
+  </repositories>
+  
+<!--   https://docs.github.com/en/actions/guides/publishing-java-packages-with-maven
+  https://maven.apache.org/pom.html#distribution-management -->
+  <distributionManagement>
+    <repository>
+      <id>github</id>
+      <name>GitHub Packages</name>
+      <url>https://maven.pkg.github.com/j143/query-spanner-with-java</url>
+    </repository>
+  </distributionManagement>
+  
+  <!-- 
+    https://maven.apache.org/plugins/maven-compiler-plugin/examples/set-compiler-source-and-target.html -->
+  <build>
+    
+    <plugins>
+      <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-compiler-plugin</artifactId>
+        <version>3.8.1</version>
+        <configuration>
+          <source>1.8</source>
+          <target>1.8</target>
+        </configuration>
+      </plugin>
+
+      <!-- 
+        https://maven.apache.org/plugins/maven-assembly-plugin/usage.html -->
+      <plugin>
+        <artifactId>maven-assembly-plugin</artifactId>
+        <version>3.3.0</version>
+        <configuration>
+          <descriptorRefs>
+            <descriptorRef>jar-with-dependencies</descriptorRef>
+          </descriptorRefs>
+          <archive>
+            <manifest>
+              <addClasspath>true</addClasspath>
+              <mainClass>page.janardhan.labs.App</mainClass>
+            </manifest>
+          </archive>
+        </configuration>
+        <executions>
+          <execution>
+            <id>make-assembly</id> <!-- this is used for inheritance merges -->
+            <phase>package</phase> <!-- bind to the packaging phase -->
+            <goals>
+              <goal>single</goal>
+            </goals>
+          </execution>
+        </executions>
+      </plugin>
+    </plugins>
+    
+  </build>
+
+  <dependencies>
+    <dependency>
+      <groupId>junit</groupId>
+      <artifactId>junit</artifactId>
+      <version>3.8.1</version>
+      <scope>test</scope>
+    </dependency>
+
+    <dependency>
+      <groupId>com.google.cloud</groupId>
+      <artifactId>google-cloud-spanner</artifactId>
+      <version>6.4.4</version>
+    </dependency>
+
+    <!-- Google core libraries for Java 
+      https://search.maven.org/artifact/com.google.guava/guava/30.1.1-jre/bundle -->
+
+    <dependency>
+      <groupId>com.google.guava</groupId>
+      <artifactId>guava</artifactId>
+      <version>30.1.1-jre</version>
+      <!-- <type>bundle</type> -->
+    </dependency>
+    <!-- Google OAUTH library http
+      https://search.maven.org/artifact/com.google.auth/google-auth-library-oauth2-http/0.26.0/jar -->
+    <dependency>
+      <groupId>com.google.auth</groupId>
+      <artifactId>google-auth-library-oauth2-http</artifactId>
+      <version>0.26.0</version>
+    </dependency>
+
+  </dependencies>
+</project>
